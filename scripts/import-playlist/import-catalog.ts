@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -23,6 +23,9 @@ type ImportedChannel = {
 };
 
 async function main() {
+  const dataDir = join(root, "data");
+  await mkdir(dataDir, { recursive: true });
+
   const localPlaylistPath = join(root, "data", "playlist.m3u");
 
   // Attempt to fetch remote playlist from GitHub
