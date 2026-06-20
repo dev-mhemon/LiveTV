@@ -1,0 +1,17 @@
+.next
+node_modules
+.env
+.env*.local
+dist
+coverage
+*.tsbuildinfo
+vercel.json
+
+# Kilo CLI local config (contains secrets like GITHUB_PERSONAL_ACCESS_TOKEN)
+.kilo/
+
+# Generated data (re-created on every dev/build)
+data/playlist.m3u
+data/channels.json
+data/catalog-meta.json
+data/channels-source.json
