@@ -3,7 +3,7 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 import Hls from "hls.js";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { AlertTriangle, Loader2, RadioTower, RotateCcw } from "lucide-react";
+import { AlertTriangle, Loader2, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Channel } from "@/lib/types";
 
@@ -206,7 +206,7 @@ export function StreamPlayer({ channel }: StreamPlayerProps) {
   }, [activeSource?.url, retryNonce, advanceSource, clearStallTimer]);
 
   return (
-    <div className="w-full flex-1 flex flex-col min-h-0 bg-black border-r-2 border-[var(--border-bright)]">
+    <div className="w-full flex-1 flex flex-col min-h-0 bg-black md:border-r-2 border-[var(--border-bright)] p-3 sm:p-4 lg:p-6">
       <div className="flex-1 flex flex-col min-h-0 w-full">
         <div className="relative flex-1 min-h-0 bg-black overflow-hidden">
           <video
@@ -230,8 +230,8 @@ export function StreamPlayer({ channel }: StreamPlayerProps) {
 
           {/* Fatal error panel — shown only when all sources have been exhausted. */}
           {fatalError ? (
-            <div className="absolute inset-0 grid place-items-center bg-black/85 p-6 text-center">
-              <div className="max-w-md border-2 border-[var(--status-live)] bg-black p-6">
+            <div className="absolute inset-0 grid place-items-center bg-black/85 p-4 sm:p-6 text-center">
+              <div className="w-full max-w-sm sm:max-w-md border-2 border-[var(--status-live)] bg-black p-4 sm:p-6">
                 <AlertTriangle className="mx-auto mb-3 h-10 w-10 text-[var(--status-live)]" strokeWidth={2.5} />
                 <p className="mono text-xs font-bold uppercase tracking-[0.18em] text-[var(--status-live)]">
                   {fatalError}
@@ -249,40 +249,10 @@ export function StreamPlayer({ channel }: StreamPlayerProps) {
           ) : null}
         </div>
 
-        <div className="flex flex-col gap-3 border-t-2 border-[var(--border-bright)] bg-[var(--surface-1)] p-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-          <div className="min-w-0">
-            <div className="flex items-center gap-2">
-              <span className="status-dot status-dot--live" aria-hidden />
-              <h2 className="truncate text-sm font-extrabold uppercase tracking-[-0.01em] text-[var(--foreground)] sm:text-base">
-                {channel.name}
-              </h2>
-            </div>
-            <p className="mono mt-2 truncate text-[10px] uppercase tracking-[0.18em] text-[var(--foreground-dim)]">
-              {activeSource?.label ?? "Stream source"} · {activeSource?.quality ?? "auto"} · route {sourceIndex + 1}/{sources.length}
-            </p>
-          </div>
-          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 shrink-0">
-            <div className="flex items-center gap-2 border border-[var(--border-bright)] bg-black px-3 py-1.5">
-              <RadioTower className="h-3.5 w-3.5 text-[var(--accent)]" strokeWidth={2.5} />
-              <span className="mono text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--foreground-muted)]">
-                Worker HLS · 10s Buffer
-              </span>
-            </div>
-            <div className="hidden truncate max-w-xs md:block mono text-[10px] uppercase tracking-[0.18em] text-[var(--foreground-dim)]">
-              {activeSource?.url ? maskUrl(activeSource.url) : "No source available"}
-            </div>
-          </div>
-        </div>
+
       </div>
     </div>
   );
 }
 
-function maskUrl(url: string) {
-  try {
-    const parsed = new URL(url);
-    return `${parsed.protocol}//${parsed.host}${parsed.pathname.slice(0, 24)}...`;
-  } catch {
-    return "Private stream route";
-  }
-}
+

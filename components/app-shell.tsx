@@ -82,14 +82,14 @@ export function AppShell({ initialChannels }: AppShellProps) {
       </header>
 
       {/* ═══════════════ Main two-column body ═══════════════ */}
-      <main className="flex-1 flex min-h-0 overflow-hidden">
+      <main className="flex-1 flex flex-col md:flex-row min-h-0 overflow-hidden">
 
         {/* ── LEFT: Player column ── */}
-        <div className="flex-1 flex flex-col min-h-0 min-w-0">
+        <div className="w-full aspect-video shrink-0 flex flex-col md:aspect-auto md:flex-1 md:min-h-0 md:min-w-0">
           {selectedChannel ? (
             <StreamPlayer channel={selectedChannel} />
           ) : (
-            <div className="flex flex-1 items-center justify-center bg-black border-r-2 border-[var(--border-bright)]">
+            <div className="flex flex-1 items-center justify-center bg-black md:border-r-2 border-[var(--border-bright)]">
               <div className="text-center">
                 <Tv
                   className="mx-auto mb-3 h-12 w-12 text-[var(--border-bright)] animate-pulse"
@@ -104,7 +104,7 @@ export function AppShell({ initialChannels }: AppShellProps) {
         </div>
 
         {/* ── RIGHT: Channel sidebar ── */}
-        <aside className="w-[360px] xl:w-[420px] shrink-0 flex flex-col border-l-2 border-[var(--border-bright)] bg-[var(--surface-1)] overflow-hidden">
+        <aside className="w-full flex-1 md:flex-none md:shrink-0 md:w-[280px] lg:w-[360px] xl:w-[420px] flex flex-col border-t-2 md:border-t-0 md:border-l-2 border-[var(--border-bright)] bg-[var(--surface-1)] overflow-hidden">
 
           {/* Sidebar header — sticky, non-scrolling */}
           <div className="shrink-0 border-b-2 border-[var(--border-bright)] px-3 pt-4 pb-3 space-y-3">
@@ -241,12 +241,11 @@ function CategoryNav({
               onSelect(item);
             }}
             className={cn(
-              "focus-ring relative shrink-0 px-4 py-2.5 text-[12px] cursor-pointer transition-colors duration-100 whitespace-nowrap",
+              "focus-ring relative shrink-0 px-4 py-2.5 text-sm cursor-pointer transition-colors duration-100 whitespace-nowrap",
               isActive
                 ? "text-[var(--accent)] font-semibold"
                 : "text-[var(--foreground-muted)] font-normal hover:text-[var(--foreground)]"
             )}
-            style={{ pointerEvents: "auto", fontSize: "12px" }}
           >
             {label}
             {/* Active underline */}
