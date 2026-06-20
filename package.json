@@ -1,0 +1,35 @@
+{
+  "name": "bdix-live-tv",
+  "version": "0.2.0",
+  "private": true,
+  "scripts": {
+    "dev": "npm run import:playlist && next dev",
+    "build": "npm run import:playlist && next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "import:playlist": "tsx scripts/import-playlist/import-catalog.ts"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server-github": "^2025.4.8",
+    "class-variance-authority": "latest",
+    "clsx": "latest",
+    "hls.js": "latest",
+    "lucide-react": "latest",
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "tailwind-merge": "latest"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "latest",
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "eslint": "latest",
+    "eslint-config-next": "latest",
+    "tailwindcss": "latest",
+    "tsx": "latest",
+    "typescript": "latest"
+  }
+}
