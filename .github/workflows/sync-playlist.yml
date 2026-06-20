@@ -1,0 +1,40 @@
+name: Hourly Playlist Sync
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # Runs every hour
+  workflow_dispatch:      # Allows manual trigger from the GitHub Actions tab
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write     # Required to push changes back to the repository
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run playlist import script
+        run: npm run import:playlist
+
+      - name: Commit and push updates
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Stage the updated playlist and generated database files
+          git add data/playlist.m3u data/channels.json data/catalog-meta.json
+          
+          # Commit and push only if there are changes
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: auto-update playlist and channels list" && git push)

@@ -1,6 +1,9 @@
 @import 'https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500;700&display=swap';
 @import "tailwindcss";
 
+/* Prevent Tailwind v4 from generating invalid wildcard CSS variable utilities */
+@source not inline("text-[var(--*)]");
+
 
 :root {
   color-scheme: dark;
